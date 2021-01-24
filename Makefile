@@ -1,7 +1,7 @@
 BUILDDIR = build
 LDFLAGS =
 CXX = clang++
-CXXFLAGS = -I. -Isrc/ -Wall -std=c++17 -g3
+CXXFLAGS = -I. -Isrc/ -Ipublic/ -Wall -std=c++17 -g3
 
 UNAME_S := $(shell uname -s)
 
