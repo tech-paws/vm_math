@@ -64,3 +64,5 @@ extern "C" Mat4f tech_paws_vm_math_transforms_create_2d_model_matrix(const Trans
 extern "C" Mat4f tech_paws_vm_math_mat4_to_mat4_mul(const Mat4f m1, const Mat4f m2);
 
 extern "C" Vec4f tech_paws_vm_math_mat4_to_vec4_mul(const Mat4f m, const Vec4f v);
+
+extern "C" Vec4f tech_paws_vm_math_vec4_to_mat4_mul(const Vec4f v, const Mat4f m);

@@ -67,3 +67,7 @@ extern "C" Mat4f tech_paws_vm_math_mat4_to_mat4_mul(const Mat4f m1, const Mat4f 
 extern "C" Vec4f tech_paws_vm_math_mat4_to_vec4_mul(const Mat4f m, const Vec4f v) {
     return vm_vec4f(glm_mat4(m) * glm_vec4(v));
 }
+
+extern "C" Vec4f tech_paws_vm_math_vec4_to_mat4_mul(const Vec4f v, const Mat4f m) {
+    return vm_vec4f(glm_vec4(v) * glm_mat4(m));
+}

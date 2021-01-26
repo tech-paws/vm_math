@@ -14,7 +14,7 @@ build: $(LIBRARY)
 
 $(LIBRARY): $(OBJECTS)
 	$(CXX) -shared $(LDFLAGS) $(OBJECTS) -o build/$(LIBRARY)
-	bindgen public/cpp/vm_math.hpp -o public/rust/vm_math/src/lib.rs
+	bindgen public/cpp/vm_math.hpp -o public/rust/vm_math/src/vm_math.rs
 
 $(BUILDDIR)/%.o: %.cpp
 	mkdir -p $(BUILDDIR)/$(dir $<)
