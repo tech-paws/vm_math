@@ -17,10 +17,10 @@ inline glm::vec4 glm_vec4(Vec4f const& vec) {
 
 inline glm::mat4 glm_mat4(Mat4f const& mat) {
     return glm::mat4(
-        glm_vec4(mat.cols[0]),
-        glm_vec4(mat.cols[1]),
-        glm_vec4(mat.cols[2]),
-        glm_vec4(mat.cols[3])
+        glm::vec4(mat.cols[0].x, mat.cols[1].x, mat.cols[2].x, mat.cols[3].x),
+        glm::vec4(mat.cols[0].y, mat.cols[1].y, mat.cols[2].y, mat.cols[3].y),
+        glm::vec4(mat.cols[0].z, mat.cols[1].z, mat.cols[2].z, mat.cols[3].z),
+        glm::vec4(mat.cols[0].w, mat.cols[1].w, mat.cols[2].w, mat.cols[3].w)
     );
 }
 
@@ -54,10 +54,10 @@ inline Mat4f vm_mat4f(Vec4f c1, Vec4f c2, Vec4f c3, Vec4f c4) {
 
 inline Mat4f vm_mat4f(glm::mat4 const& glm_mat) {
     return vm_mat4f(
-        vm_vec4f(glm_mat[0]),
-        vm_vec4f(glm_mat[1]),
-        vm_vec4f(glm_mat[2]),
-        vm_vec4f(glm_mat[3])
+        vm_vec4f(glm_mat[0].x, glm_mat[1].x, glm_mat[2].x, glm_mat[3].x),
+        vm_vec4f(glm_mat[0].y, glm_mat[1].y, glm_mat[2].y, glm_mat[3].y),
+        vm_vec4f(glm_mat[0].z, glm_mat[1].z, glm_mat[2].z, glm_mat[3].z),
+        vm_vec4f(glm_mat[0].w, glm_mat[1].w, glm_mat[2].w, glm_mat[3].w)
     );
 }
 
@@ -69,8 +69,8 @@ inline void vm_vec4f(Vec4f& vec, glm::vec4 const& glm_vec) {
 }
 
 inline void vm_mat4f(Mat4f& mat, glm::mat4 const& glm_mat) {
-    vm_vec4f(mat.cols[0], glm_mat[0]);
-    vm_vec4f(mat.cols[1], glm_mat[1]);
-    vm_vec4f(mat.cols[2], glm_mat[2]);
-    vm_vec4f(mat.cols[3], glm_mat[3]);
+    mat.cols[0] = vm_vec4f(glm_mat[0].x, glm_mat[1].x, glm_mat[2].x, glm_mat[3].x);
+    mat.cols[1] = vm_vec4f(glm_mat[0].y, glm_mat[1].y, glm_mat[2].y, glm_mat[3].y);
+    mat.cols[2] = vm_vec4f(glm_mat[0].z, glm_mat[1].z, glm_mat[2].z, glm_mat[3].z);
+    mat.cols[3] = vm_vec4f(glm_mat[0].w, glm_mat[1].w, glm_mat[2].w, glm_mat[3].w);
 }
