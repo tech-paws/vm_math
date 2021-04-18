@@ -1,5 +1,10 @@
 mod vm_math;
 
+#[allow(warnings)]
+#[allow(clippy::all)]
+mod math_generated;
+
+pub use math_generated::*;
 use std::ops;
 pub use vm_math::*;
 
@@ -159,6 +164,74 @@ impl ops::Mul<Mat4f> for Vec4f {
         unsafe { tech_paws_vm_math_vec4_to_mat4_mul(self, rhs) }
     }
 }
+
+// Flatbuffers
+
+impl From<Vec2f> for tech_paws::schemes::math::Vec2f {
+    fn from(vec: Vec2f) -> Self {
+        Self::new(vec.x, vec.y)
+    }
+}
+
+impl From<tech_paws::schemes::math::Vec2f> for Vec2f {
+    fn from(vec: tech_paws::schemes::math::Vec2f) -> Self {
+        Self::new(vec.x(), vec.y())
+    }
+}
+
+impl From<Vec3f> for tech_paws::schemes::math::Vec3f {
+    fn from(vec: Vec3f) -> Self {
+        Self::new(vec.x, vec.y, vec.z)
+    }
+}
+
+impl From<tech_paws::schemes::math::Vec3f> for Vec3f {
+    fn from(vec: tech_paws::schemes::math::Vec3f) -> Self {
+        Self::new(vec.x(), vec.y(), vec.z())
+    }
+}
+
+impl From<Vec4f> for tech_paws::schemes::math::Vec4f {
+    fn from(vec: Vec4f) -> Self {
+        Self::new(vec.x, vec.y, vec.z, vec.w)
+    }
+}
+
+impl From<&Vec4f> for tech_paws::schemes::math::Vec4f {
+    fn from(vec: &Vec4f) -> Self {
+        Self::new(vec.x, vec.y, vec.z, vec.w)
+    }
+}
+
+impl From<&tech_paws::schemes::math::Vec4f> for Vec4f {
+    fn from(vec: &tech_paws::schemes::math::Vec4f) -> Self {
+        Self::new(vec.x(), vec.y(), vec.z(), vec.w())
+    }
+}
+
+impl From<Mat4f> for tech_paws::schemes::math::Mat4f {
+    fn from(vec: Mat4f) -> Self {
+        Self::new(
+            &vec.cols[0].into(),
+            &vec.cols[1].into(),
+            &vec.cols[2].into(),
+            &vec.cols[3].into(),
+        )
+    }
+}
+
+impl From<tech_paws::schemes::math::Mat4f> for Mat4f {
+    fn from(vec: tech_paws::schemes::math::Mat4f) -> Self {
+        Self::new(
+            vec.c1().into(),
+            vec.c2().into(),
+            vec.c3().into(),
+            vec.c4().into(),
+        )
+    }
+}
+
+// Methods
 
 pub fn create_2d_model_matrix(transforms: Transforms2D) -> Mat4f {
     unsafe { tech_paws_vm_math_transforms_create_2d_model_matrix(transforms) }

@@ -1,0 +1,26 @@
+namespace TechPaws.Schemes.Math;
+
+struct Vec2f {
+  x:float;
+  y:float;
+}
+
+struct Vec3f {
+  x:float;
+  y:float;
+  z:float;
+}
+
+struct Vec4f {
+  x:float;
+  y:float;
+  z:float;
+  w:float;
+}
+
+struct Mat4f {
+  c1:Vec4f;
+  c2:Vec4f;
+  c3:Vec4f;
+  c4:Vec4f;
+}
