@@ -2,7 +2,7 @@ mod vm_math;
 
 use std::ops;
 use vm_buffers::IntoVMBuffers;
-pub use vm_math::*;
+use vm_math::*;
 
 impl Vec2f {
     /// Const value for zero value: `Vec2::new(0., 0.)`.
@@ -223,8 +223,6 @@ impl ops::Mul<Mat4f> for Vec4f {
         unsafe { tech_paws_vm_math_vec4_to_mat4_mul(self, rhs) }
     }
 }
-
-// Methods
 
 pub fn create_2d_model_matrix(transforms: Transforms2D) -> Mat4f {
     unsafe { tech_paws_vm_math_transforms_create_2d_model_matrix(transforms) }
