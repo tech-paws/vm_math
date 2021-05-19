@@ -2,7 +2,7 @@ mod vm_math;
 
 use std::ops;
 use vm_buffers::IntoVMBuffers;
-use vm_math::*;
+pub use vm_math::*;
 
 impl Vec2f {
     /// Const value for zero value: `Vec2::new(0., 0.)`.
