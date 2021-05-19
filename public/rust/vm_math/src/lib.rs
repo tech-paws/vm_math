@@ -1,11 +1,7 @@
 mod vm_math;
 
-#[allow(warnings)]
-#[allow(clippy::all)]
-mod math_generated;
-
-pub use math_generated::*;
 use std::ops;
+use vm_buffers::IntoVMBuffers;
 pub use vm_math::*;
 
 impl Vec2f {
@@ -15,6 +11,17 @@ impl Vec2f {
     /// Create a new vector.
     pub const fn new(x: f32, y: f32) -> Vec2f {
         Vec2f { x, y }
+    }
+}
+
+impl IntoVMBuffers for Vec2f {
+    fn read_from_buffers(bytes_reader: &mut vm_buffers::BytesReader) -> Self {
+        Vec2f::new(bytes_reader.read_f32(), bytes_reader.read_f32())
+    }
+
+    fn write_to_buffers(&self, bytes_writer: &mut vm_buffers::BytesWriter) {
+        bytes_writer.write_f32(self.x);
+        bytes_writer.write_f32(self.y);
     }
 }
 
@@ -28,6 +35,22 @@ impl Vec3f {
     }
 }
 
+impl IntoVMBuffers for Vec3f {
+    fn read_from_buffers(bytes_reader: &mut vm_buffers::BytesReader) -> Self {
+        Vec3f::new(
+            bytes_reader.read_f32(),
+            bytes_reader.read_f32(),
+            bytes_reader.read_f32(),
+        )
+    }
+
+    fn write_to_buffers(&self, bytes_writer: &mut vm_buffers::BytesWriter) {
+        bytes_writer.write_f32(self.x);
+        bytes_writer.write_f32(self.y);
+        bytes_writer.write_f32(self.z);
+    }
+}
+
 impl Vec4f {
     /// Const value for zero value: `Vec4::new(0., 0., 0., 0.)`.
     pub const ZERO: Vec4f = Vec4f::new(0., 0., 0., 0.);
@@ -35,6 +58,24 @@ impl Vec4f {
     /// Create a new vector.
     pub const fn new(x: f32, y: f32, z: f32, w: f32) -> Vec4f {
         Vec4f { x, y, z, w }
+    }
+}
+
+impl IntoVMBuffers for Vec4f {
+    fn read_from_buffers(bytes_reader: &mut vm_buffers::BytesReader) -> Self {
+        Vec4f::new(
+            bytes_reader.read_f32(),
+            bytes_reader.read_f32(),
+            bytes_reader.read_f32(),
+            bytes_reader.read_f32(),
+        )
+    }
+
+    fn write_to_buffers(&self, bytes_writer: &mut vm_buffers::BytesWriter) {
+        bytes_writer.write_f32(self.x);
+        bytes_writer.write_f32(self.y);
+        bytes_writer.write_f32(self.z);
+        bytes_writer.write_f32(self.w);
     }
 }
 
@@ -50,6 +91,24 @@ impl Mat4f {
         Mat4f {
             cols: [c1, c2, c3, c4],
         }
+    }
+}
+
+impl IntoVMBuffers for Mat4f {
+    fn read_from_buffers(bytes_reader: &mut vm_buffers::BytesReader) -> Self {
+        Mat4f::new(
+            Vec4f::read_from_buffers(bytes_reader),
+            Vec4f::read_from_buffers(bytes_reader),
+            Vec4f::read_from_buffers(bytes_reader),
+            Vec4f::read_from_buffers(bytes_reader),
+        )
+    }
+
+    fn write_to_buffers(&self, bytes_writer: &mut vm_buffers::BytesWriter) {
+        self.cols[0].write_to_buffers(bytes_writer);
+        self.cols[1].write_to_buffers(bytes_writer);
+        self.cols[2].write_to_buffers(bytes_writer);
+        self.cols[3].write_to_buffers(bytes_writer);
     }
 }
 
@@ -162,72 +221,6 @@ impl ops::Mul<Mat4f> for Vec4f {
 
     fn mul(self, rhs: Mat4f) -> Vec4f {
         unsafe { tech_paws_vm_math_vec4_to_mat4_mul(self, rhs) }
-    }
-}
-
-// Flatbuffers
-
-impl From<Vec2f> for tech_paws::schemes::math::Vec2f {
-    fn from(vec: Vec2f) -> Self {
-        Self::new(vec.x, vec.y)
-    }
-}
-
-impl From<tech_paws::schemes::math::Vec2f> for Vec2f {
-    fn from(vec: tech_paws::schemes::math::Vec2f) -> Self {
-        Self::new(vec.x(), vec.y())
-    }
-}
-
-impl From<Vec3f> for tech_paws::schemes::math::Vec3f {
-    fn from(vec: Vec3f) -> Self {
-        Self::new(vec.x, vec.y, vec.z)
-    }
-}
-
-impl From<tech_paws::schemes::math::Vec3f> for Vec3f {
-    fn from(vec: tech_paws::schemes::math::Vec3f) -> Self {
-        Self::new(vec.x(), vec.y(), vec.z())
-    }
-}
-
-impl From<Vec4f> for tech_paws::schemes::math::Vec4f {
-    fn from(vec: Vec4f) -> Self {
-        Self::new(vec.x, vec.y, vec.z, vec.w)
-    }
-}
-
-impl From<&Vec4f> for tech_paws::schemes::math::Vec4f {
-    fn from(vec: &Vec4f) -> Self {
-        Self::new(vec.x, vec.y, vec.z, vec.w)
-    }
-}
-
-impl From<&tech_paws::schemes::math::Vec4f> for Vec4f {
-    fn from(vec: &tech_paws::schemes::math::Vec4f) -> Self {
-        Self::new(vec.x(), vec.y(), vec.z(), vec.w())
-    }
-}
-
-impl From<Mat4f> for tech_paws::schemes::math::Mat4f {
-    fn from(vec: Mat4f) -> Self {
-        Self::new(
-            &vec.cols[0].into(),
-            &vec.cols[1].into(),
-            &vec.cols[2].into(),
-            &vec.cols[3].into(),
-        )
-    }
-}
-
-impl From<tech_paws::schemes::math::Mat4f> for Mat4f {
-    fn from(vec: tech_paws::schemes::math::Mat4f) -> Self {
-        Self::new(
-            vec.c1().into(),
-            vec.c2().into(),
-            vec.c3().into(),
-            vec.c4().into(),
-        )
     }
 }
 
