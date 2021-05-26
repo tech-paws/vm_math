@@ -41,6 +41,14 @@ struct Transforms2D {
     float rotation { 0.f };
 };
 
+inline float const* tech_paws_vm_math_vec3fptr(Vec3f const* vec) {
+    return &vec->x;
+}
+
+inline float const* tech_paws_vm_math_vec2fptr(Vec2f const* vec) {
+    return &vec->x;
+}
+
 inline float const* tech_paws_vm_math_vec4fptr(Vec4f const* vec) {
     return &vec->x;
 }
