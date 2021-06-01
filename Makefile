@@ -15,7 +15,7 @@ build: $(LIBRARY)
 
 $(LIBRARY): $(OBJECTS)
 	$(CXX) -shared $(LDFLAGS) $(OBJECTS) -o build/$(LIBRARY)
-	bindgen public/cpp/vm_math.hpp -o public/rust/vm_math/src/vm_math.rs
+	bindgen public/cpp/vm_math.hpp -o public/rust/vm_math/src/c.rs
 	cd public/rust/vm_math && cargo clippy
 
 $(BUILDDIR)/%.o: %.cpp

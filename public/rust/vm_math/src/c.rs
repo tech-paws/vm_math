@@ -307,6 +307,15 @@ extern "C" {
     pub fn tech_paws_vm_math_transforms_create_2d_model_matrix(transforms: Transforms2D) -> Mat4f;
 }
 extern "C" {
+    pub fn tech_paws_vm_math_create_translate_mat(m: Mat4f, pos: Vec3f) -> Mat4f;
+}
+extern "C" {
+    pub fn tech_paws_vm_math_create_rotate_mat(m: Mat4f, rotation: f32, axis: Vec3f) -> Mat4f;
+}
+extern "C" {
+    pub fn tech_paws_vm_math_create_scale_mat(m: Mat4f, scaling: Vec3f) -> Mat4f;
+}
+extern "C" {
     pub fn tech_paws_vm_math_mat4_to_mat4_mul(m1: Mat4f, m2: Mat4f) -> Mat4f;
 }
 extern "C" {

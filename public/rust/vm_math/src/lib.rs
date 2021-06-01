@@ -1,8 +1,8 @@
-mod vm_math;
+pub mod c;
 
 use std::ops;
 use vm_buffers::IntoVMBuffers;
-pub use vm_math::*;
+use c::*;
 
 impl Vec2f {
     /// Const value for zero value: `Vec2::new(0., 0.)`.
@@ -230,4 +230,16 @@ pub fn create_2d_model_matrix(transforms: Transforms2D) -> Mat4f {
 
 pub fn create_ortho_camera_matrices(transforms: OthroCameraTransforms) -> CameraMatrices {
     unsafe { tech_paws_vm_math_create_ortho_camera_matrices(transforms) }
+}
+
+pub fn create_translate_matrix(m: Mat4f, pos: Vec3f) -> Mat4f {
+    unsafe { tech_paws_vm_math_create_translate_mat(m, pos) }
+}
+
+pub fn create_rotate_matrix(m: Mat4f, rotation: f32, axis: Vec3f) -> Mat4f {
+    unsafe { tech_paws_vm_math_create_rotate_mat(m, rotation, axis) }
+}
+
+pub fn create_scale_matrix(m: Mat4f, scaling: Vec3f) -> Mat4f {
+    unsafe { tech_paws_vm_math_create_scale_mat(m, scaling) }
 }

@@ -60,6 +60,21 @@ extern "C" Mat4f tech_paws_vm_math_transforms_create_2d_model_matrix(const Trans
     return vm_mat4f(translate_matrix * rotate_matrix * scale_matrix);
 }
 
+extern "C" Mat4f tech_paws_vm_math_create_translate_mat(const Mat4f m, const Vec3f pos) {
+    const auto translate_matrix = glm::translate(glm_mat4(m), glm_vec3(pos));
+    return vm_mat4f(translate_matrix);
+}
+
+extern "C" Mat4f tech_paws_vm_math_create_rotate_mat(const Mat4f m, const float rotation, const Vec3f axis) {
+    const auto rotate_matrix = glm::rotate(glm_mat4(m), rotation, glm_vec3(axis));
+    return vm_mat4f(rotate_matrix);
+}
+
+extern "C" Mat4f tech_paws_vm_math_create_scale_mat(const Mat4f m, const Vec3f scaling) {
+    const auto scale_matrix = glm::scale(glm_mat4(m), glm_vec3(scaling));
+    return vm_mat4f(scale_matrix);
+}
+
 extern "C" Mat4f tech_paws_vm_math_mat4_to_mat4_mul(const Mat4f m1, const Mat4f m2) {
     return vm_mat4f(glm_mat4(m1) * glm_mat4(m2));
 }
