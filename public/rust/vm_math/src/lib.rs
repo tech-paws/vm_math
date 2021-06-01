@@ -1,8 +1,8 @@
-pub mod c;
+mod c;
 
+pub use c::*;
 use std::ops;
 use vm_buffers::IntoVMBuffers;
-use c::*;
 
 impl Vec2f {
     /// Const value for zero value: `Vec2::new(0., 0.)`.
