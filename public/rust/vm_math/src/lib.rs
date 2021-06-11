@@ -112,6 +112,14 @@ impl IntoVMBuffers for Mat4f {
     }
 }
 
+impl Rect {
+    pub const ZERO: Rect = Rect::new(Vec2f::ZERO, Vec2f::ZERO);
+
+    pub const fn new(pos: Vec2f, size: Vec2f) -> Rect {
+        Rect { pos, size }
+    }
+}
+
 impl Default for Mat4f {
     fn default() -> Self {
         Mat4f::IDENT
@@ -133,6 +141,12 @@ impl Default for Vec3f {
 impl Default for Vec4f {
     fn default() -> Self {
         Vec4f::ZERO
+    }
+}
+
+impl Default for Rect {
+    fn default() -> Self {
+        Rect::ZERO
     }
 }
 

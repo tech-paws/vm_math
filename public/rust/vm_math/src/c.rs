@@ -135,6 +135,40 @@ fn bindgen_test_layout_Mat4f() {
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct Rect {
+    pub pos: Vec2f,
+    pub size: Vec2f,
+}
+#[test]
+fn bindgen_test_layout_Rect() {
+    assert_eq!(
+        ::std::mem::size_of::<Rect>(),
+        16usize,
+        concat!("Size of: ", stringify!(Rect))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<Rect>(),
+        4usize,
+        concat!("Alignment of ", stringify!(Rect))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<Rect>())).pos as *const _ as usize },
+        0usize,
+        concat!("Offset of field: ", stringify!(Rect), "::", stringify!(pos))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<Rect>())).size as *const _ as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(Rect),
+            "::",
+            stringify!(size)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct CameraMatrices {
     pub view_matrix: Mat4f,
     pub projection_matrix: Mat4f,

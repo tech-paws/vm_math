@@ -22,6 +22,11 @@ struct Mat4f {
     Vec4f cols[4];
 };
 
+struct Rect {
+    Vec2f pos;
+    Vec2f size;
+};
+
 struct CameraMatrices {
     Mat4f view_matrix;
     Mat4f projection_matrix;
