@@ -2,7 +2,6 @@ BUILDDIR = build
 LDFLAGS = -arch ${ARCH}
 CXX = clang++
 CXXFLAGS = -I. -Isrc/ -Ipublic/cpp/ -Wall -std=c++17 -g3 -arch ${ARCH}
-FLATC = flatc
 
 ifeq (${TARGET},ios)
 	CXX = $$(xcrun --sdk iphoneos --find clang)

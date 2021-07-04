@@ -2,10 +2,10 @@
     "id": "tech_paws.vm.math",
     "name": "Math primitives",
     "description": "Math primitives like Mat4f, Vec4f etc and functions for simple calculations",
-    "version": "0.0.1",
     "repository": "https://github.com/tech-paws/vm_math",
+    "version": "0.0.1",
     "dependencies": [
-        {"type": "git", "name": "glm", "version": "0.9.8", "git": "https://github.com/g-truc/glm.git", "path": "glm"}
+        {"type": "git", "name": "glm", "git": "https://github.com/g-truc/glm.git", "version": "0.9.8", "path": "glm"}
     ],
     "platforms": [
         {
@@ -21,7 +21,7 @@
             "arch": "x86_64",
             "build": [
                 "make clean",
-                "env ARCH=x86_64 TARGET=osx make build"
+                "env ARCH=x86_64 TARGET=linux make build"
             ],
             "libs": [
                 {"path": "build/libvm_math.so", "name": "libvm_math.so"}
