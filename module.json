@@ -1,0 +1,72 @@
+{
+    "id": "tech_paws.vm.math",
+    "name": "Math primitives",
+    "description": "Math primitives like Mat4f, Vec4f etc and functions for simple calculations",
+    "version": "0.0.1",
+    "repository": "https://github.com/tech-paws/vm_math",
+    "dependencies": [
+        {"type": "git", "name": "glm", "version": "0.9.8", "git": "https://github.com/g-truc/glm.git", "path": "glm"}
+    ],
+    "platforms": [
+        {
+            "os": "universal",
+            "arch": "universal",
+            "headers": [
+                {"path": "public/cpp/vm_glm_adapter.hpp", "to": "vm_glm_adapter.hpp"},
+                {"path": "public/cpp/vm_math.hpp", "to": "vm_math.hpp"}
+            ]
+        },
+        {
+            "os": "linux",
+            "arch": "x86_64",
+            "build": [
+                "make clean",
+                "env ARCH=x86_64 TARGET=osx make build"
+            ],
+            "libs": [
+                {"path": "build/libvm_math.so", "name": "libvm_math.so"}
+            ]
+        },
+        {
+            "os": "osx",
+            "arch": "x86_64",
+            "build": [
+                "make clean",
+                "env ARCH=x86_64 TARGET=osx make build"
+            ],
+            "libs": [
+                {"path": "build/libvm_math.so", "name": "libvm_math.so"}
+            ]
+        },
+        {
+            "os": "osx",
+            "arch": "arm64",
+            "build": [
+                "make clean",
+                "env ARCH=arm64 TARGET=osx make build"
+            ],
+            "libs": [
+                {"path": "build/libvm_math.so", "name": "libvm_math.so"}
+            ]
+        },
+        {
+            "os": "ios",
+            "arch": "arm64",
+            "build": [
+                "make clean",
+                "env ARCH=arm64 TARGET=ios make build"
+            ],
+            "libs": [
+                {"path": "build/libvm_math.so", "name": "libvm_math.so"}
+            ]
+        },
+        {
+            "os": "windows",
+            "arch": "x86_64",
+            "build": ["todo"],
+            "libs": [
+                {"path": "build/libvm_math.dll", "name": "libvm_math.dll"}
+            ]
+        }
+    ]
+}

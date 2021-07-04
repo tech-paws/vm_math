@@ -1,11 +1,16 @@
 BUILDDIR = build
-LDFLAGS =
+LDFLAGS = -arch ${ARCH}
 CXX = clang++
-CXXFLAGS = -I. -Isrc/ -Ipublic/cpp/ -Wall -std=c++17 -g3
+CXXFLAGS = -I. -Isrc/ -Ipublic/cpp/ -Wall -std=c++17 -g3 -arch ${ARCH}
 FLATC = flatc
 
-UNAME_S := $(shell uname -s)
+ifeq (${TARGET},ios)
+	CXX = $$(xcrun --sdk iphoneos --find clang)
+	CXXFLAGS += -isysroot $$(xcrun --sdk iphoneos --show-sdk-path)
+	LDFLAGS += -isysroot $$(xcrun --sdk iphoneos --show-sdk-path)
+endif
 
+UNAME_S := $(shell uname -s)
 SOURCES := $(shell find src -type f -name '*.cpp' -maxdepth 1)
 OBJECTS := $(addprefix $(BUILDDIR)/,$(SOURCES:%.cpp=%.o))
 
@@ -15,6 +20,8 @@ build: $(LIBRARY)
 
 $(LIBRARY): $(OBJECTS)
 	$(CXX) -shared $(LDFLAGS) $(OBJECTS) -o build/$(LIBRARY)
+
+bindgen:
 	bindgen public/cpp/vm_math.hpp -o public/rust/vm_math/src/c.rs
 	cd public/rust/vm_math && cargo clippy
 

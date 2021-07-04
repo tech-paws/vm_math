@@ -3,19 +3,19 @@
 #include "vm_math.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 
-inline glm::vec2 glm_vec2(Vec2f const& vec) {
+inline glm::vec2 vm_glm_vec2(Vec2f const& vec) {
     return glm::vec2(vec.x, vec.y);
 }
 
-inline glm::vec3 glm_vec3(Vec3f const& vec) {
+inline glm::vec3 vm_glm_vec3(Vec3f const& vec) {
     return glm::vec3(vec.x, vec.y, vec.z);
 }
 
-inline glm::vec4 glm_vec4(Vec4f const& vec) {
+inline glm::vec4 vm_glm_vec4(Vec4f const& vec) {
     return glm::vec4(vec.x, vec.y, vec.z, vec.w);
 }
 
-inline glm::mat4 glm_mat4(Mat4f const& mat) {
+inline glm::mat4 vm_glm_mat4(Mat4f const& mat) {
     return glm::mat4(
         glm::vec4(mat.cols[0].x, mat.cols[1].x, mat.cols[2].x, mat.cols[3].x),
         glm::vec4(mat.cols[0].y, mat.cols[1].y, mat.cols[2].y, mat.cols[3].y),

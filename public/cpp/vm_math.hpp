@@ -43,7 +43,7 @@ struct OthroCameraTransforms {
 struct Transforms2D {
     Vec2f position;
     Vec2f scaling;
-    float rotation { 0.f };
+    float rotation;
 };
 
 inline float const* tech_paws_vm_math_vec3fptr(Vec3f const* vec) {
